@@ -11,15 +11,13 @@ public class EtudiantMapper {
 
     public Etudiant DTO_to_Entity(RequestEtudiantDto requestEtudiantDto) {
         Etudiant etudiant = new Etudiant();
-        BeanUtils.copyProperties(requestEtudiantDto, etudiant, "filiere");
-        etudiant.setFiliere(requestEtudiantDto.getFiliere());
+        BeanUtils.copyProperties(requestEtudiantDto, etudiant);
         return etudiant;
     }
 
     public ResponseEtudiantDto Entity_to_DTO(Etudiant etudiant) {
         ResponseEtudiantDto responseEtudiantDto = new ResponseEtudiantDto();
-        BeanUtils.copyProperties(etudiant, responseEtudiantDto, "filiere");
-        responseEtudiantDto.setFiliere(etudiant.getFiliere());
+        BeanUtils.copyProperties(etudiant, responseEtudiantDto);
         return responseEtudiantDto;
     }
 }

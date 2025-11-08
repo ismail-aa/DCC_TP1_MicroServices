@@ -1,12 +1,10 @@
-package org.example.studentservice.modele;
+package org.example.studentservice.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Filiere {
@@ -14,5 +12,4 @@ public class Filiere {
     private Integer idFiliere;
     private String code;
     private String libelle;
-
 }

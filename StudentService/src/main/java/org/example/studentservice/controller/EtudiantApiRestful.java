@@ -2,6 +2,7 @@ package org.example.studentservice.controller;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,7 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.example.studentservice.dto.RequestEtudiantDto;
 import org.example.studentservice.dto.ResponseEtudiantDto;
-import org.example.studentservice.services.EtudiantService;
+import org.example.studentservice.services.EtudiantServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -29,14 +30,15 @@ import java.util.List;
 @RequestMapping("/v1/etudiants")
 public class EtudiantApiRestful {
 
-    private EtudiantService etudiantService;
+    private EtudiantServiceImpl etudiantService;
 
-    public EtudiantApiRestful(EtudiantService etudiantService) {
+    public EtudiantApiRestful(EtudiantServiceImpl etudiantService) {
         this.etudiantService = etudiantService;
     }
 
     @Operation(
             summary = "Ajouter un étudiant",
+            description = "Ajoute un nouvel étudiant avec son identifiant de filière.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(
@@ -52,8 +54,8 @@ public class EtudiantApiRestful {
                                     schema = @Schema(implementation = ResponseEtudiantDto.class)
                             )
                     ),
-                    @ApiResponse(responseCode = "4xx", description = "erreur client"),
-                    @ApiResponse(responseCode = "5xx", description = "erreur server")
+                    @ApiResponse(responseCode = "4xx", description = "erreur côté client"),
+                    @ApiResponse(responseCode = "5xx", description = "erreur côté server")
             }
     )
 
@@ -65,6 +67,7 @@ public class EtudiantApiRestful {
 
     @Operation(
             summary = "Récupérer tous les étudiants",
+            description = "Récupère la liste complète des étudiants.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -87,14 +90,12 @@ public class EtudiantApiRestful {
 
     @Operation(
             summary = "Récupérer un étudiant par son identifiant",
-           /* parameters = {
-                    @io.swagger.v3.oas.annotations.parameters.Parameter(
-                            name = "id",
-                            description = "Identifiant de l'étudiant à récupérer",
-                            required = true,
-                            schema = @Schema(type = "integer")
-                    )
-            }, */
+            description = "Recuperer les informations d’un étudiant spécifique.",
+            parameters = @Parameter(
+                    name = "id",
+                    description = "Identifiant unique de l’étudiant",
+                    required = true
+            ),
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -118,6 +119,12 @@ public class EtudiantApiRestful {
 
     @Operation(
             summary = "Mettre à jour un étudiant",
+            description = "Met à jour les informations d’un étudiant existant.",
+            parameters = @Parameter(
+                    name = "id",
+                    description = "Identifiant de l'étudiant à mettre à jour",
+                    required = true
+            ),
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(
@@ -125,14 +132,6 @@ public class EtudiantApiRestful {
                             schema = @Schema(implementation = RequestEtudiantDto.class)
                     )
             ),
-           /* parameters = {
-                    @io.swagger.v3.oas.annotations.parameters.Parameter(
-                            name = "id",
-                            description = "Identifiant de l'étudiant à mettre à jour",
-                            required = true,
-                            schema = @Schema(type = "integer")
-                    )
-            }, */
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -156,14 +155,12 @@ public class EtudiantApiRestful {
 
     @Operation(
             summary = "Supprimer un étudiant",
-           /* parameters = {
-                    @io.swagger.v3.oas.annotations.parameters.Parameter(
-                            name = "id",
-                            description = "Identifiant de l'étudiant à supprimer",
-                            required = true,
-                            schema = @Schema(type = "integer")
-                    )
-            }, */
+            description = "Supprime un étudiant existant à partir de son id.",
+            parameters = @Parameter(
+                    name = "id",
+                    description = "Identifiant de l'étudiant à supprimer",
+                    required = true
+            ),
             responses = {
                     @ApiResponse(responseCode = "200", description = "Étudiant supprimé avec succès"),
                     @ApiResponse(responseCode = "404", description = "Étudiant non trouvé"),

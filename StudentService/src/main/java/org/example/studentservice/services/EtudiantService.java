@@ -9,7 +9,7 @@ public interface EtudiantService {
 
     ResponseEtudiantDto Add_Etudiant(RequestEtudiantDto requestEtudiantDto);
     List<ResponseEtudiantDto> GetAllEtudiants();
-    ResponseEtudiantDto GetEtudiantById(Integer id);
-    ResponseEtudiantDto Update_Etudiant(Integer id, RequestEtudiantDto requestEtudiantDto);
-    void DeleteEtudiantById(Integer id);
+    ResponseEtudiantDto GetEtudiantById(Integer idEtudiant);
+    ResponseEtudiantDto Update_Etudiant(Integer idEtudiant, RequestEtudiantDto requestEtudiantDto);
+    void DeleteEtudiantById(Integer idEtudiant);
 }
